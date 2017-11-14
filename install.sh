@@ -35,9 +35,20 @@ function install-common-packages() {
 	apt-get install crudini -y
 	sleep 3
 
-	echo "About to install NTP Server"
+	echo "About to install and configure NTP Server"
 	sleep 3
 	apt-get install chrony -y
+	if [ "$1" == "controller" ]
+	then
+		sudo sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool 2.debian.pool.ntp.org iburst/g" /etc/chrony/chrony.conf
+		controller_ip = $(get-ip-address $mgmt_interface)
+		allow_ip=`echo $controller_ip | cut -d"." -f1-2`
+		echo "allow "$allow_ip".0.0/16" >> /etc/chrony/chrony.conf
+	if
+	if [ "$1" == "compute" ]
+	then
+		sudo sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool $controller_host_name iburst/g" /etc/chrony/chrony.conf
+	if
 	service chrony restart
 	
 	echo "About to configure APT for Ocata"
@@ -137,13 +148,13 @@ if [ "$1" == "allinone" ]
 	then
 		echo "Installing packages for All-in-One"
 		sleep 5
-		install-common-packages
+		install-common-packages $1
 		install-controller-packages
 		install-compute-packages
 		install-networknode-packages
 elif [ "$1" == "controller" ] || [ "$1" == "compute" ] || [ "$1" == "networknode" ]
 	then
-		install-common-packages
+		install-common-packages $1
 		echo "Installing packages for: "$1
 		sleep 5
 		install-$1-packages
