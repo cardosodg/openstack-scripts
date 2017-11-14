@@ -74,7 +74,7 @@ elif [ "$1" == "controller" ]
 		service rabbitmq-server restart
 
 		echo_and_sleep "Configuring memcached"
-		sed -i "s/127.0.0.1/$1/g" /etc/memcached.conf
+		sed -i "s/127.0.0.1/$controller_host_name/g" /etc/memcached.conf
 		service memcached restart
 		
 		echo_and_sleep "About to setup KeyStone..."
