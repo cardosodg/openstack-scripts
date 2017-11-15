@@ -35,7 +35,7 @@ function install-common-packages() {
 	apt-get install crudini -y
 	sleep 3
 
-	echo "About to install and configure NTP Server"
+	echo "About to install NTP Server"
 	sleep 3
 	apt-get install chrony -y
 	service chrony restart
