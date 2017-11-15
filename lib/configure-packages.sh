@@ -42,7 +42,7 @@ metering_secret="password"
 
 if [ "$1" == "compute" ]
 	then
-		echo_and_sleep "About to install and configure NTP Server" 3
+		echo_and_sleep "About to configure NTP Server" 3
 		sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool $controller_host_name iburst/g" /etc/chrony/chrony.conf
 		service chrony restart
 		exit 1
@@ -67,7 +67,7 @@ elif [ "$1" == "controller" ]
 			echo "Correct syntax: $0 controller <controller_ip_address>"
 			exit 1;
 		fi
-		echo "About to install and configure NTP Server"
+		echo "About to configure NTP Server"
 		sleep 3
 		sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool 2.debian.pool.ntp.org iburst/g" /etc/chrony/chrony.conf
 		controller_ip=$(get-ip-address $mgmt_interface)
