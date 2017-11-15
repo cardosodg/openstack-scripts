@@ -42,6 +42,11 @@ metering_secret="password"
 
 if [ "$1" == "compute" ]
 	then
+		echo_and_sleep "About to install and configure NTP Server" 3
+		sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool $controller_host_name iburst/g" /etc/chrony/chrony.conf
+		service chrony restart
+		exit 1
+		
 		echo_and_sleep "About to configure Compute" 3
 		bash $(dirname $0)/configure-forwarding.sh compute
 
@@ -62,6 +67,14 @@ elif [ "$1" == "controller" ]
 			echo "Correct syntax: $0 controller <controller_ip_address>"
 			exit 1;
 		fi
+		echo "About to install and configure NTP Server"
+		sleep 3
+		sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool 2.debian.pool.ntp.org iburst/g" /etc/chrony/chrony.conf
+		controller_ip=$(get-ip-address $mgmt_interface)
+		allow_ip=`echo $controller_ip | cut -d"." -f1-2`
+		echo "allow "$allow_ip".0.0/16" >> /etc/chrony/chrony.conf
+		service chrony restart
+		
 		configure-mysql-controller $2
 		bash $(dirname $0)/mysql-secure-installation.sh $mysql_user $mysql_password
 		echo_and_sleep "Completed MySQL Config and Secure Installation" 2

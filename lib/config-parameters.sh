@@ -1,8 +1,8 @@
-controller_host_name="controller"
+controller_host_name="controllerdev"
 
 ### Start - interface related settings
-readonly mgmt_interface="enp0s1"
-readonly data_interface="enp0s8"
+readonly mgmt_interface="ens160"
+readonly data_interface="ens192"
 ### End - interface related settings
 
 ### Start - Neutron related settings
@@ -11,33 +11,33 @@ readonly neutron_ovs_bridge_mappings="provider:br-$data_interface"
 
 readonly neutron_linuxbridge_tenant_network_type="vlan"
 readonly neutron_linuxbridge_physical_interface_mappings="provider:$data_interface"
-readonly neutron_linuxbridge_overlay_interface=$data_interface
+readonly neutron_linuxbridge_overlay_interface=$mgmt_interface
 ### End - Neutron related settings
 
 readonly mysql_user="root"
-readonly mysql_password="password"
+readonly mysql_password="stack"
 
 readonly rabbitmq_user="openstack"
-readonly rabbitmq_password="password"
+readonly rabbitmq_password="stack"
 
-readonly keystone_db_password="password"
+readonly keystone_db_password="stack"
 
-readonly glance_password="password"
-readonly glance_db_password="password"
+readonly glance_password="stack"
+readonly glance_db_password="stack"
 
-readonly admin_tenant_password="password"
+readonly admin_tenant_password="stack"
 
-readonly nova_password="password"
-readonly nova_db_password="password"
+readonly nova_password="stack"
+readonly nova_db_password="stack"
 
-readonly neutron_password="password"
-readonly neutron_db_password="password"
+readonly neutron_password="stack"
+readonly neutron_db_password="stack"
 
-readonly ceilometer_password="password"
-readonly ceilometer_db_password="password"
+readonly ceilometer_password="stack"
+readonly ceilometer_db_password="stack"
 
-readonly heat_password="password"
-readonly heat_db_password="password"
+readonly heat_password="stack"
+readonly heat_db_password="stack"
 
 function echo_and_sleep() {
 	if [ -z "$2" ]
