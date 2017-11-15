@@ -45,7 +45,6 @@ if [ "$1" == "compute" ]
 		echo_and_sleep "About to configure NTP Server" 3
 		sed -i "s/pool 2.debian.pool.ntp.org offline iburst/pool $controller_host_name iburst/g" /etc/chrony/chrony.conf
 		service chrony restart
-		exit 1
 		
 		echo_and_sleep "About to configure Compute" 3
 		bash $(dirname $0)/configure-forwarding.sh compute
