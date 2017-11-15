@@ -81,7 +81,7 @@ if [ "$1" == "networknode" -o "$1" == "controller" ]
 		echo "Overlay Interface IP Address: $overlay_interface_ip"
 		sleep 5
 		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $overlay_interface_ip
-		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini agent prevent_arp_spoofing True
+		# crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini agent prevent_arp_spoofing True
 		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup enable_security_group True
 		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup firewall_driver neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 
@@ -118,7 +118,7 @@ if [ "$1" == "compute" ]
 		echo "Overlay Interface IP Address: $overlay_interface_ip"
 		sleep 5
 		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $overlay_interface_ip
-		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini agent prevent_arp_spoofing True
+		# crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini agent prevent_arp_spoofing True
 		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup enable_security_group True
 		crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup firewall_driver neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 fi
