@@ -10,7 +10,6 @@ cp $(dirname $0)/local_settings.py /etc/openstack-dashboard/
 echo_and_sleep "Copied local_settings.py to /etc/openstack-dashboard" 2
 
 sed -e "/^OPENSTACK_HOST =.*$/s/^.*$/OPENSTACK_HOST = \""$1"\"/" -i /etc/openstack-dashboard/local_settings.py
-#sed -e "/^'LOCATION.*$/s/^.*$/'LOCATION': \'"$1:1121"\'/" -i /etc/openstack-dashboard/local_settings.py
 sed "/LOCATION.*$/ s/controller/$1/g" -i /etc/openstack-dashboard/local_settings.py
 grep "OPENSTACK_HOST" /etc/openstack-dashboard/local_settings.py
 grep "LOCATION" /etc/openstack-dashboard/local_settings.py
