@@ -1,8 +1,8 @@
 controller_host_name="controllerdev"
 
 ### Start - interface related settings
-readonly mgmt_interface="ens160"
-readonly data_interface="ens192"
+readonly mgmt_interface="eno1"
+readonly data_interface="eno2"
 ### End - interface related settings
 
 ### Start - Neutron related settings

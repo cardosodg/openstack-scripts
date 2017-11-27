@@ -69,7 +69,8 @@ crudini --set /etc/nova/nova.conf DEFAULT my_ip $mgmt_interface_ip
 crudini --set /etc/nova/nova.conf DEFAULT use_neutron True
 crudini --set /etc/nova/nova.conf DEFAULT firewall_driver nova.virt.firewall.NoopFirewallDriver
 
-crudini --set /etc/nova/nova.conf vnc vncserver_proxyclient_address $mgmt_interface_ip
+crudini --set /etc/nova/nova.conf vnc vncserver_proxyclient_address '$'my_ip
+crudini --set /etc/nova/nova.conf vnc enabled True
 
 crudini --set /etc/nova/nova.conf placement os_region_name RegionOne
 crudini --set /etc/nova/nova.conf placement project_domain_name Default
@@ -87,7 +88,6 @@ elif [ "$1" == "compute" ]
 	then
 		controller_ip=`getent hosts $2 | awk '{ print $1 }'`
 		echo_and_sleep "Controller IP is: $controller_ip" 2
-		crudini --set /etc/nova/nova.conf vnc enabled True
 		crudini --set /etc/nova/nova.conf vnc vncserver_listen 0.0.0.0
 		crudini --set /etc/nova/nova.conf vnc novncproxy_base_url http://$controller_ip:6080/vnc_auto.html
 
